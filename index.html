@@ -233,12 +233,17 @@
         }
 
         .checkmark-box {
-            background: #fff3cd;
+            background: var(--card-bg);
             padding: 20px;
             border-radius: 8px;
             margin: 15px 0;
             border-left: 4px solid #ffc107;
-        }
+            color: var(--text-color);
+       }
+
+       [data-theme="dark"] .checkmark-box {
+            background: rgba(255, 193, 7, 0.1);  /* Subtle yellow tint in dark mode */
+       }
 
         .wallet-info {
             background: #4a266b;
