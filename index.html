@@ -201,29 +201,25 @@
         /* Main Container */
         .container {
             width: 100%;
-            margin: 80px 0 20px;
-            padding: 20px;
+            margin: 60px 0 0 0;
+            padding: 0;
             animation: fadeIn 0.5s ease-out;
         }
 
         /* Sections */
         .section {
             background: var(--card-bg);
-            padding: 20px;
-            margin-bottom: 20px;
-            border-radius: 0;  /* Removed border radius for full width look */
-            border-left: none; /* Removed left border */
-            border-top: 4px solid #663399; /* Added top border instead */
+            padding: 40px 20px;
+            margin-bottom: 0;
+            border-left: 4px solid #663399;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             transition: transform 0.3s ease;
-            width: 100%;
-            max-width: 100%;
-            margin-left: 0;
-            margin-right: 0;
+            border-radius: 0;
+            text-align: center;
         }
 
         .section:hover {
-            transform: translateY(-2px); /* Reduced from -5px to -2px */
+            transform: translateY(-5px);
         }
 
         /* Content Boxes */
