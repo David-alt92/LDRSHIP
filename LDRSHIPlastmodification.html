@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LDRSHIP - The People's Token</title>
+    <style>
+        /* Theme Variables */
+        :root {
+            --bg-color: #f8f5ff;
+            --text-color: #333;
+            --card-bg: white;
+            --nav-bg: rgba(102, 51, 153, 0.95);
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #1a1a2e;
+            --text-color: #e1e1e1;
+            --card-bg: #2a2a3e;
+            --nav-bg: rgba(51, 25, 76, 0.95);
+        }
+
+        /* Animations */
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes glow {
+            0% { text-shadow: 0 0 10px #9b6dff, 0 0 20px #9b6dff; }
+            50% { text-shadow: 0 0 20px #9b6dff, 0 0 30px #9b6dff, 0 0 40px #9b6dff; }
+            100% { text-shadow: 0 0 10px #9b6dff, 0 0 20px #9b6dff; }
+        }
+
+        .subtitle {
+            color: #9b6dff;
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        /* Base Styles */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            font-size: 18px;
+            line-height: 1.6;
+            background: linear-gradient(-45deg, #663399, #9966cc, #4a266b, #8a2be2);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: var(--text-color);
+            min-height: 100vh;
+            transition: all 0.3s ease;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.5px;
+        }
+
+        h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            font-size: 1.25rem;
+            line-height: 1.8;
+            margin: 1rem 0;
+        }
+
+        small {
+            font-size: 1rem;
+        }
+
+        code {
+            font-size: 1.2rem;
+            background: rgba(0,0,0,0.1);
+            padding: 0.5rem;
+            border-radius: 4px;
+            display: block;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--nav-bg);
+            backdrop-filter: blur(10px);
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .nav-center {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 2rem;
+        }
+
+        .social-icon {
+            color: white;
+            font-size: 1.5rem;
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .social-icon:hover {
+            opacity: 0.8;
+        }
+
+        .social-icon svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .logo {
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+        }
+
+        /* Menu Button */
+        .menu-btn {
+            width: 30px;
+            height: 20px;
+            position: relative;
+            cursor: pointer;
+            margin-left: 20px;
+        }
+
+        .menu-btn__burger,
+        .menu-btn__burger::before,
+        .menu-btn__burger::after {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 3px;
+            background: white;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .menu-btn__burger {
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .menu-btn__burger::before { top: -8px; }
+        .menu-btn__burger::after { top: 8px; }
+
+        .menu-btn.open .menu-btn__burger {
+            background: transparent;
+        }
+
+        .menu-btn.open .menu-btn__burger::before {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .menu-btn.open .menu-btn__burger::after {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 5px;
+            margin-right: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 800px;
+            margin: 80px auto 20px;
+            padding: 20px;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        /* Sections */
+        .section {
+            background: var(--card-bg);
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #663399;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Content Boxes */
+        .rant-box {
+            background: #ff6b6b;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .checkmark-box {
+            background: #fff3cd;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #ffc107;
+        }
+
+        .wallet-info {
+            background: #4a266b;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        .losses-display {
+            background: #ff8888;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        .roadmap-box {
+            background: linear-gradient(135deg, #4a266b, #663399);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .roadmap-box p {
+            font-size: 1.4rem;
+            line-height: 1.8;
+            margin: 1.5rem 0;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .roadmap-box .highlight {
+            color: #ffd700;
+            font-weight: bold;
+            font-size: 1.6rem;
+        }
+
+        .roadmap-box .emphasis {
+            color: #9b6dff;
+            font-weight: bold;
+        }
+
+        .roadmap-box .final-statement {
+            font-size: 1.5rem;
+            margin-top: 2rem;
+            font-style: italic;
+            color: #ffd700;
+        }
+
+        /* Forms */
+        .community-form {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 2px solid #663399;
+            border-radius: 4px;
+            background: var(--card-bg);
+            color: var(--text-color);
+        }
+
+        button {
+            background: #663399;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background: #9966cc;
+            transform: translateY(-2px);
+        }
+
+        /* Comments */
+        .comment {
+            background: var(--card-bg);
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border-left: 3px solid #663399;
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 768px) {
+            .container {
+                padding: 15px;
+                margin-top: 70px;
+            }
+
+            .section { padding: 15px; }
+        }
+
+        .disclaimer-section {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 30px;
+            border-radius: 12px;
+            margin-top: 40px;
+            text-align: center;
+            border: 2px dashed #9b6dff;
+        }
+
+        .disclaimer-title {
+            color: #ffd700;
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .disclaimer-text {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #fff;
+            opacity: 0.9;
+        }
+
+        .disclaimer-text span {
+            color: #9b6dff;
+            font-weight: bold;
+        }
+
+        .copyright {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1rem;
+            border-top: 1px solid rgba(155, 109, 255, 0.2);
+        }
+
+        .copyright p {
+            margin: 5px 0;
+            font-size: 0.9rem;
+        }
+
+        @media screen and (max-width: 480px) {
+            .nav { padding: 0.8rem; }
+            
+            .logo {
+                width: 35px;
+                height: 35px;
+            }
+
+            .theme-toggle { font-size: 1.2rem; }
+            
+            .section { padding: 12px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="logo"></div>
+        <div class="nav-center">
+            <a href="https://x.com/LDRSHIP" target="_blank" rel="noopener noreferrer" class="social-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 4l11.733 16h4.267l-11.733 -16z"/>
+                    <path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772"/>
+                </svg>
+            </a>
+            <a href="https://t.me/LDRSHIP" target="_blank" rel="noopener noreferrer" class="social-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 2L15 22l-3-6-6-3z"/>
+                </svg>
+            </a>
+        </div>
+        <div style="display: flex; align-items: center;">
+            <button class="theme-toggle">🌓</button>
+            <div class="menu-btn">
+                <div class="menu-btn__burger"></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="section">
+            <h1 style="text-align: center;">LDRSHIP</h1>
+            <div class="subtitle">The People's Token</div>
+            <p style="text-align: center;">Loyalty • Duty • Respect • Selfless Service • Honor • Integrity • Personal Courage</p>
+        </div>
+
+        <div class="section">
+            <h2>📢 The Raw Truth</h2>
+            <div class="rant-box">
+                <p>🚨 Tired of getting fucked by the 1%? So am I. No more bullshit inu tokens, no more frog scams, no more manipulation. This is about taking back control.</p>
+                <p>❌ No blue or yellow checkmark on X (Twitter) - I'm broke like you</p>
+                <p>❌ No fancy marketing bullshit</p>
+                <p>❌ No bots in our Telegram</p>
+                <p>❌ No paid influencers</p>
+                <p>✅ Just real people, real holdings, real community</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🚫 Why No Checkmark?</h2>
+            <div class="checkmark-box">
+                <p>💰 Blue checkmark = $8/month I don't have</p>
+                <p>💰 Yellow checkmark = Even more money I don't want to waste</p>
+                <p>⚠️ Remember: Verified accounts have rugged us before:</p>
+                <p>- Remember $PEPE?</p>
+                <p>- Remember $WOJAK?</p>
+                <p>- Remember all those "verified" devs?</p>
+                <p>🎯 Trust the contract and community, not a fucking badge</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🔍 My Losses - I'm Just Like You</h2>
+            <div class="losses-display">
+                <h3>Stock Market Losses:</h3>
+                <img src="/api/placeholder/400/200" alt="Stock Losses" style="width: 100%; border-radius: 4px; margin: 10px 0;">
+                <h3>Crypto Losses:</h3>
+                <img src="/api/placeholder/400/200" alt="Crypto Losses" style="width: 100%; border-radius: 4px; margin: 10px 0;">
+                <p>⚠️ I've been rugged, scammed, and fucked by the market just like you. I'm not hiding it.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>💎 LDRSHIP Token</h2>
+            <div class="wallet-info">
+                <p>Contract Address:</p>
+                <code style="word-break: break-all;">[Contract Address Will Go Here]</code>
+                <p>My Holdings:</p>
+                <img src="/api/placeholder/400/200" alt="My Wallet" style="width: 100%; border-radius: 4px; margin: 10px 0;">
+                <p>⚠️ These are my only holdings. Anyone else claiming to be me is lying.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>💰 Tokenomics (The Fun Part)</h2>
+            <div class="tokenomics-box">
+                <div class="token-stats">
+                    <div class="stat-card">
+                        <div class="stat-number">0%</div>
+                        <div class="stat-label">Tax (Because we're not thieves)</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">Fair Launch (No presale BS)</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">0</div>
+                        <div class="stat-label">Team Tokens (We buy like everyone else)</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">∞</div>
+                        <div class="stat-label">Potential (Up to you, anon)</div>
+                    </div>
+                </div>
+
+                <div class="token-details">
+                    <p><strong>Total Supply:</strong> 1,000,000,000,000 $LDRSHIP</p>
+                    <p><strong>Contract Address:</strong></p>
+                    <div class="contract-display">
+                        0x000...000 [Contract Address Placeholder]
+                    </div>
+                    <button class="copy-button">📋 Copy Address</button>
+                </div>
+
+                <p class="fun-fact">🎯 Why these numbers? Because we're tired of complicated math hiding simple scams.</p>
+                <p style="font-size: 1.4rem; margin-top: 30px;">
+                    No VCs, No Private Sales, No Bullshit<br>
+                    Just Fair Launch and Let It Fly 🚀
+                </p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🚫 NO ROADMAP</h2>
+            <div class="roadmap-box">
+                <p class="highlight">❌ Fuck traditional roadmaps</p>
+                <p class="emphasis">👥 The COMMUNITY is the roadmap</p>
+                <p>🚀 Launching ONLY on pump.fun</p>
+                <p class="highlight">💎 No taxes, no bullshit</p>
+                <p class="emphasis">✅ Fair launch, fair game</p>
+                <p>🔬 This is a social experiment</p>
+                <p class="final-statement">Your choices, your decisions - let's see how far we can take this</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>👥 Share Your Holdings</h2>
+            <div class="community-form">
+                <form id="holdingsForm">
+                    <textarea placeholder="Tell your story - why are you here? What made you join?" style="height: 100px;"></textarea>
+                    <input type="file" accept="image/*">
+                    <button type="submit">Share Your Holdings</button>
+                </form>
+            </div>
+            <div id="communityHoldings">
+                <div class="comment">
+                    <img src="/api/placeholder/400/200" alt="Community Wallet" style="width: 100%; border-radius: 4px;">
+                    <p>"In it for the long run. No paper hands here. 💎✋"</p>
+                    <small>Wallet: 0x1234...5678</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>💬 Community Voice</h2>
+            <div class="community-form">
+                <form id="commentForm">
+                    <textarea placeholder="Speak your mind - no censorship here" style="height: 100px;"></textarea>
+                    <button type="submit">Post Comment</button>
+                </form>
+            </div>
+            <div class="comments-section">
+                <div class="comment">
+                    <p>"Finally someone speaking the truth! No more fancy marketing BS!"</p>
+                    <small>Posted 2 hours ago</small>
+                </div>
+                <div class="comment">
+                    <p>"Been rugged 5 times before. This is different. No false promises, just transparency."</p>
+                    <small>Posted 3 hours ago</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🤝 Join The Movement</h2>
+            <a href="#" style="text-decoration: none;">
+                <div class="telegram-link" style="background: #0088cc; color: white; text-align: center; padding: 15px; border-radius: 8px; margin: 20px 0;">
+                    Join Our Telegram - No Bots, No Censorship, No BS
+                </div>
+            </a>
+            <div style="text-align: center; margin-top: 20px;">
+                <p>Website Code: <a href="#" style="color: #663399;">GitHub Repository</a></p>
+                <p>Make it better - it's open source 🌟</p>
+            </div>
+        </div>
+
+        <div class="disclaimer-section">
+            <div class="disclaimer-title">🎮 Fun Disclaimer Time! 🎲</div>
+            <div class="disclaimer-text">
+                <p>Not financial advice - just vibes and community. Remember: <span>never invest more than you can afford to lose</span> (and we really mean that).</p>
+                <p>This token is an experiment in community-driven development. No promises, no bullshit, just pure chaos and fun.</p>
+                <p>Side effects may include: 💎 diamond hands, 🚀 moonshot dreams, and an unhealthy obsession with checking your wallet</p>
+                <p>By using this website, you agree that you're here for the good times, the bad times, and everything in between!</p>
+            </div>
+        </div>
+
+        <div class="copyright">
+            <p>© 2025 LDRSHIP. All rights reserved.</p>
+            <p>Built by the people, for the people. 🌟</p>
+        </div>
+    </div>
+
+    <script>
+        // Theme Toggle
+        const themeToggle = document.querySelector('.theme-toggle');
+        const body = document.documentElement;
+        
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = body.getAttribute('data-theme') || 'light';
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            body.setAttribute('data-theme', newTheme);
+        });
+
+        // Menu Button Toggle
+        const menuBtn = document.querySelector('.menu-btn');
+        menuBtn.addEventListener('click', () => {
+            menuBtn.classList.toggle('open');
+        });
+
+        // Form Submissions
+        document.getElementById('holdingsForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Holdings shared! (Demo only)');
+        });
+
+        document.getElementById('commentForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Comment posted! (Demo only)');
+        });
+    </script>
+</body>
+</html>
