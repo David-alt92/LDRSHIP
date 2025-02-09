@@ -407,6 +407,84 @@
     background: var(--card-bg);
     border-radius: 8px;
 }
+       /* Menu Overlay */
+.menu-overlay {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 300px;
+    height: 100vh;
+    background: var(--nav-bg);
+    backdrop-filter: blur(10px);
+    z-index: 999;
+    transition: right 0.3s ease;
+    box-shadow: -2px 0 10px rgba(0,0,0,0.2);
+    overflow-y: auto;
+}
+
+.menu-overlay.active {
+    right: 0;
+}
+
+.menu-content {
+    padding: 80px 20px 20px;
+    color: white;
+}
+
+.menu-content h2 {
+    color: #ffd700;
+    margin-bottom: 20px;
+}
+
+/* Timeline Styles */
+.history-timeline {
+    margin-top: 20px;
+}
+
+.timeline-item {
+    position: relative;
+    padding: 20px 0 20px 30px;
+    border-left: 2px solid #9b6dff;
+    margin-bottom: 10px;
+}
+
+.timeline-item:before {
+    content: '';
+    position: absolute;
+    left: -6px;
+    top: 24px;
+    width: 10px;
+    height: 10px;
+    background: #9b6dff;
+    border-radius: 50%;
+}
+
+.timeline-item .date {
+    font-size: 0.9rem;
+    color: #9b6dff;
+    margin-bottom: 5px;
+}
+
+.timeline-item .event {
+    font-weight: bold;
+    color: #ffd700;
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+}
+
+.timeline-item p {
+    margin-top: 5px;
+    font-size: 0.95rem;
+    opacity: 0.9;
+    line-height: 1.4;
+    color: #fff;
+}
+
+.timeline-item:hover {
+    background: rgba(155, 109, 255, 0.1);
+    border-radius: 4px;
+    transition: all 0.3s ease;
+} 
     </style>
 </head>
 <body>
@@ -433,6 +511,68 @@
             </div>
         </div>
     </nav>
+
+    <!-- Menu Overlay -->
+    <div class="menu-overlay" id="menuOverlay">
+        <div class="menu-content">
+            <h2>📜 LDRSHIP History</h2>
+            <div class="history-timeline">
+                <div class="timeline-item">
+                    <div class="date">December 15, 2024</div>
+                    <div class="event">😤 The Last Straw</div>
+                    <p>Lost my ass on another "safe" investment. Staring at my negative portfolio, had an epiphany: "Fuck this rigged system."</p>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="date">December 20, 2024</div>
+                    <div class="event">💡 The LDRSHIP Idea Born</div>
+                    <p>After getting rugged for the 69th time, realized we need something real. No more dog coins, no more frog BS. Something with actual values.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="date">December 25, 2024</div>
+                    <div class="event">🎄 Christmas Special</div>
+                    <p>While everyone was opening presents, I was opening VS Code. Started building this janky-ass website. No fancy shit, just raw truth.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="date">January 1, 2025</div>
+                    <div class="event">🎯 The Vision Clicks</div>
+                    <p>New Year's resolution: Create a token that isn't complete BS. LDRSHIP values defined. Still too broke for Twitter checkmark.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="date">January 15, 2025</div>
+                    <div class="event">📱 Telegram Channel Created</div>
+                    <p>Created first Telegram channel. No bots, no censorship, no BS. Just me figuring out how this shit works.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="date">January 20, 2025</div>
+                    <div class="event">🌐 Website Goes Live</div>
+                    <p>Launched this beautiful disaster of a website. Open-sourced because I know my coding sucks. Community can fix it.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="date">February 1, 2025</div>
+                    <div class="event">🚀 LDRSHIP Launch on pump.fun</div>
+                    <p>The madness begins. Launched with my own money (what's left of it). Posted my wallet like a chad. No hiding.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="date">February 9, 2025</div>
+                    <div class="event">👥 Community Takes Over</div>
+                    <p>You degenerates actually joined. No bots, no paid shills, just real people tired of getting screwed by the system.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="date">The Future</div>
+                    <div class="event">🌙 Where We Going?</div>
+                    <p>No roadmap needed. You paper hand? Cool. You diamond hand? Cool. Your choice, your destiny. Just remember this post when we hit billions.</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Main Content -->
     <div class="container">
@@ -596,43 +736,55 @@
     </div>
 
     <script>
-        // Theme Toggle
-        const themeToggle = document.querySelector('.theme-toggle');
-        const body = document.documentElement;
-        
-        themeToggle.addEventListener('click', () => {
-            const currentTheme = body.getAttribute('data-theme') || 'light';
-            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-            body.setAttribute('data-theme', newTheme);
-
-            // Update Utterances theme dynamically
-            const utterancesFrame = document.querySelector('.utterances-frame');
-            if (utterancesFrame) {
-                utterancesFrame.contentWindow.postMessage({
-                    type: 'set-theme',
-                    theme: newTheme === 'dark' ? 'github-dark' : 'github-light'
-                }, 'https://utteranc.es');
-            }
-        });
-
-        // Menu Button Toggle
-        const menuBtn = document.querySelector('.menu-btn');
-        menuBtn.addEventListener('click', () => {
-            menuBtn.classList.toggle('open');
-        });
-
-        // Remove existing comment form
-        const commentForm = document.getElementById('commentForm');
-        if (commentForm) {
-            commentForm.style.display = 'none';
+    // Theme Toggle
+    const themeToggle = document.querySelector('.theme-toggle');
+    const body = document.documentElement;
+    
+    themeToggle.addEventListener('click', () => {
+        const currentTheme = body.getAttribute('data-theme') || 'light';
+        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+        body.setAttribute('data-theme', newTheme);
+        // Update Utterances theme dynamically
+        const utterancesFrame = document.querySelector('.utterances-frame');
+        if (utterancesFrame) {
+            utterancesFrame.contentWindow.postMessage({
+                type: 'set-theme',
+                theme: newTheme === 'dark' ? 'github-dark' : 'github-light'
+            }, 'https://utteranc.es');
         }
-        
-        // Form Submissions
-        document.getElementById('holdingsForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            alert('Holdings shared! (Demo only)');
-        });
-    </script>
+    });
+
+    // Menu Toggle functionality
+    const menuBtn = document.querySelector('.menu-btn');
+    const menuOverlay = document.getElementById('menuOverlay');
+    
+    menuBtn.addEventListener('click', () => {
+        menuBtn.classList.toggle('open');
+        menuOverlay.classList.toggle('active');
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!menuBtn.contains(e.target) && 
+            !menuOverlay.contains(e.target) && 
+            menuOverlay.classList.contains('active')) {
+            menuBtn.classList.remove('open');
+            menuOverlay.classList.remove('active');
+        }
+    });
+
+    // Remove existing comment form
+    const commentForm = document.getElementById('commentForm');
+    if (commentForm) {
+        commentForm.style.display = 'none';
+    }
+    
+    // Form Submissions
+    document.getElementById('holdingsForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        alert('Holdings shared! (Demo only)');
+    });
+</script>
 
     <!-- Utterances Comments Script -->
     <script>
