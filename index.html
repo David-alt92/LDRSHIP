@@ -628,29 +628,26 @@
             e.preventDefault();
             alert('Holdings shared! (Demo only)');
         });
+    </script>
 
-        document.getElementById('commentForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            alert('Comment posted! (Demo only)');
-        });
     <!-- Utterances Comments Script -->
-<script>
-    const utterancesScript = document.createElement('script');
-    utterancesScript.src = 'https://utteranc.es/client.js';
-    utterancesScript.setAttribute('repo', 'David-alt92/LDRSHIP');
-    utterancesScript.setAttribute('issue-term', 'pathname');
-    utterancesScript.setAttribute('label', 'website-comments');
-    utterancesScript.setAttribute('theme', 'github-dark');
-    utterancesScript.setAttribute('crossorigin', 'anonymous');
-    utterancesScript.async = true;
-    
-    // Get the comments container
-    const commentsContainer = document.getElementById('comments');
-    
-    // Add the script to the comments container
-    if (commentsContainer) {
-        commentsContainer.appendChild(utterancesScript);
-    }
-</script>
+    <script>
+        const utterancesScript = document.createElement('script');
+        utterancesScript.src = 'https://utteranc.es/client.js';
+        utterancesScript.setAttribute('repo', 'David-alt92/LDRSHIP');
+        utterancesScript.setAttribute('issue-term', 'pathname');
+        utterancesScript.setAttribute('label', 'website-comments');
+        utterancesScript.setAttribute('theme', 'github-dark');
+        utterancesScript.setAttribute('crossorigin', 'anonymous');
+        utterancesScript.async = true;
+        
+        // Get the comments container
+        const commentsContainer = document.getElementById('comments');
+        
+        // Add the script to the comments container
+        if (commentsContainer) {
+            commentsContainer.appendChild(utterancesScript);
+        }
+    </script>
 </body>
 </html>
