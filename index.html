@@ -561,17 +561,6 @@
             <!-- Utterances comments will replace existing comments -->
         </div>
     </div>
-            <div class="comments-section">
-                <div class="comment">
-                    <p>"Finally someone speaking the truth! No more fancy marketing BS!"</p>
-                    <small>Posted 2 hours ago</small>
-                </div>
-                <div class="comment">
-                    <p>"Been rugged 5 times before. This is different. No false promises, just transparency."</p>
-                    <small>Posted 3 hours ago</small>
-                </div>
-            </div>
-        </div>
 
         <div class="section">
             <h2>🤝 Join The Movement</h2>
@@ -644,16 +633,24 @@
             e.preventDefault();
             alert('Comment posted! (Demo only)');
         });
-    </script>
-
     <!-- Utterances Comments Script -->
-    <script src="https://utteranc.es/client.js"
-            repo="David-alt92/LDRSHIP"
-            issue-term="pathname"
-            label="website-comments"
-            theme="github-dark"
-            crossorigin="anonymous"
-            async>
-    </script>
+<script>
+    const utterancesScript = document.createElement('script');
+    utterancesScript.src = 'https://utteranc.es/client.js';
+    utterancesScript.setAttribute('repo', 'David-alt92/LDRSHIP');
+    utterancesScript.setAttribute('issue-term', 'pathname');
+    utterancesScript.setAttribute('label', 'website-comments');
+    utterancesScript.setAttribute('theme', 'github-dark');
+    utterancesScript.setAttribute('crossorigin', 'anonymous');
+    utterancesScript.async = true;
+    
+    // Get the comments container
+    const commentsContainer = document.getElementById('comments');
+    
+    // Add the script to the comments container
+    if (commentsContainer) {
+        commentsContainer.appendChild(utterancesScript);
+    }
+</script>
 </body>
 </html>
