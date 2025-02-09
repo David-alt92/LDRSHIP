@@ -200,8 +200,8 @@
 
         /* Main Container */
         .container {
-            max-width: 800px;
-            margin: 80px auto 20px;
+            width: 100%;
+            margin: 80px 0 20px;
             padding: 20px;
             animation: fadeIn 0.5s ease-out;
         }
@@ -211,14 +211,19 @@
             background: var(--card-bg);
             padding: 20px;
             margin-bottom: 20px;
-            border-radius: 8px;
-            border-left: 4px solid #663399;
+            border-radius: 0;  /* Removed border radius for full width look */
+            border-left: none; /* Removed left border */
+            border-top: 4px solid #663399; /* Added top border instead */
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             transition: transform 0.3s ease;
+            width: 100%;
+            max-width: 100%;
+            margin-left: 0;
+            margin-right: 0;
         }
 
         .section:hover {
-            transform: translateY(-5px);
+            transform: translateY(-2px); /* Reduced from -5px to -2px */
         }
 
         /* Content Boxes */
@@ -333,13 +338,16 @@
 
         /* Responsive Design */
         @media screen and (max-width: 768px) {
-            .container {
-                padding: 15px;
-                margin-top: 70px;
-            }
-
-            .section { padding: 15px; }
+        .container {
+            padding: 10px;
+            margin-top: 70px;
         }
+
+        .section { 
+            padding: 15px 10px;
+            margin-bottom: 15px;
+        }
+}
 
         .disclaimer-section {
             background: rgba(0, 0, 0, 0.3);
