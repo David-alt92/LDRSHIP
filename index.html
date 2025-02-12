@@ -334,6 +334,21 @@ input, textarea {
     text-decoration: underline;
 }
 
+.hosting-links {
+    margin: 15px 0;
+    font-size: 0.9rem;
+    color: var(--text-color);
+}
+
+.hosting-links a {
+    color: #9b6dff;
+    text-decoration: none;
+    margin: 0 5px;
+}
+
+.hosting-links a:hover {
+    text-decoration: underline;
+}     
         button {
             background: #663399;
             color: white;
@@ -707,22 +722,21 @@ input, textarea {
             </div>
         </div>
 
-        <div class="section">
+       <div class="section">
     <h2>👥 Share Your Holdings</h2>
     <div class="community-form">
         <form id="holdingsForm">
-            <p class="form-guide">🖼️ First, upload your image to <a href="https://imgur.com/upload" target="_blank" rel="noopener noreferrer">Imgur</a> and copy the link</p>
-            <input type="text" placeholder="Paste your Imgur image link here" id="imageLink" required>
+            <p class="form-guide">🖼️ Upload your image to any hosting site (like Imgur, ImgBB, or PostImage) and paste the direct image link below</p>
+            <input type="text" placeholder="Paste your image link here (ends with .jpg, .png, etc.)" id="imageLink" required>
             <textarea placeholder="Tell your story - why are you here? What made you join? How much are you holding?" style="height: 100px;" required></textarea>
+            <div class="hosting-links">
+                <p>Popular Image Hosting Sites:</p>
+                <a href="https://imgbb.com/upload" target="_blank">ImgBB</a> |
+                <a href="https://postimages.org/" target="_blank">PostImage</a> |
+                <a href="https://imgur.com/upload" target="_blank">Imgur</a>
+            </div>
             <button type="submit">Share Your Holdings 💎</button>
         </form>
-    </div>
-    <div id="communityHoldings">
-        <div class="comment">
-            <img src="/api/placeholder/400/200" alt="Community Wallet" style="width: 100%; height: 300px; object-fit: cover; border-radius: 4px;">
-            <p>"In it for the long run. No paper hands here. 💎✋"</p>
-            <small>Wallet: 0x1234...5678</small>
-        </div>
     </div>
 </div>
 
