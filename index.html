@@ -688,14 +688,12 @@
         </div>
 
         <div class="section">
-            <h2>👥 Share Your Holdings</h2>
             <div class="community-form">
-                <form id="holdingsForm">
-                    <textarea placeholder="Tell your story - why are you here? What made you join?" style="height: 100px;"></textarea>
-                    <input type="file" accept="image/*">
-                    <button type="submit">Share Your Holdings</button>
-                </form>
-            </div>
+    <form id="holdingsForm">
+        <textarea placeholder="Share your story - Why did you join? What made you believe? Post image links from imgur.com if you want to show your holdings. No pressure, just truth." style="height: 150px;"></textarea>
+        <button type="submit">Share Your Story 💎</button>
+    </form>
+</div>
             <div id="communityHoldings">
                 <div class="comment">
                     <img src="/api/placeholder/400/200" alt="Community Wallet" style="width: 100%; border-radius: 4px;">
@@ -786,10 +784,33 @@
     }
     
     // Form Submissions
-    document.getElementById('holdingsForm').addEventListener('submit', (e) => {
-        e.preventDefault();
-        alert('Holdings shared! (Demo only)');
-    });
+document.getElementById('holdingsForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const textArea = form.querySelector('textarea');
+    
+    if (!textArea.value) {
+        alert('Please share your story');
+        return;
+    }
+
+    const issueBody = `
+🌟 New Diamond Hand Story:
+
+${textArea.value}
+
+---
+Posted from: LDRSHIP Community Website 
+Time: ${new Date().toLocaleString()}
+    `;
+
+    // Open GitHub issue creation in new tab
+    window.open(`https://github.com/David-alt92/LDRSHIP/issues/new?title=Diamond%20Hand%20Story&body=${encodeURIComponent(issueBody)}&labels=community-story`, '_blank');
+    
+    // Clear the form
+    form.reset();
+    alert('Taking you to GitHub to complete your submission. Thank you for being part of the movement! 🚀');
+});
 </script>
 
     <!-- Utterances Comments Script -->
