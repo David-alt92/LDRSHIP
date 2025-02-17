@@ -27,6 +27,11 @@
             100% { background-position: 0% 50%; }
         }
 
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -96,10 +101,31 @@
             display: block;
         }
 
+        .marquee-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #ff4444;
+    color: white;
+    z-index: 2000;
+    overflow: hidden;
+    height: 40px;
+    display: flex;
+    align-items: center;
+}
+
+.marquee-content {
+    white-space: nowrap;
+    animation: marquee 20s linear infinite;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+        
         /* Navigation */
         .nav {
             position: fixed;
-            top: 0;
+            top: 40px;
             left: 0;
             right: 0;
             background: var(--nav-bg);
@@ -202,7 +228,7 @@
         /* Main Container */
         .container {
             width: 100%;
-            margin: 60px 0 0 0;
+            margin: 100px 0 0 0;
             padding: 0;
             animation: fadeIn 0.5s ease-out;
         }
@@ -529,6 +555,12 @@ input, textarea {
     </style>
 </head>
 <body>
+    <div class="marquee-container">
+        <div class="marquee-content">
+            ⚠️ Please Note: LDRSHIP Team will never send you messages on any social networks, please verify our social links via our website: ldrship.vip | Never Share Your Seed Phrase Key with anyone. &nbsp;&nbsp;&nbsp;&nbsp;
+            ⚠️ Please Note: LDRSHIP Team will never send you messages on any social networks, please verify our social links via our website: ldrship.vip | Never Share Your Seed Phrase Key with anyone. &nbsp;&nbsp;&nbsp;&nbsp;
+        </div>
+    </div>
     <!-- Navigation -->
     <nav class="nav">
         <div class="logo"></div>
